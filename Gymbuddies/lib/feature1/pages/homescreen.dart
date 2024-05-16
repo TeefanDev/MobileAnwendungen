@@ -5,12 +5,27 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home),
+            onPressed: () {
+              // Add your logic for the "Home" button here
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.person),
+            onPressed: () {
+              // Add your logic for the "Profile" button here
+            },
+          ),
+        ],
         children: [
           const Expanded(
             child: Align(
@@ -46,15 +61,15 @@ class HomeScreen extends StatelessWidget {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'Home',
+            label: 'Trainingsplan',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
-            label: 'Search',
+            label: 'Kalendar',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'Profile',
+            label: 'Contacts',
           ),
         ],
       ),
