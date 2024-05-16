@@ -1,6 +1,26 @@
-# myapp
+# Gymbuddies
 
-A new Flutter project.
+This is a Flutter project, made during the Lecture Mobile Anwendungen at the HTWG Konstanz
+
+## Important Commands:
+
+### Dart
+
+- dart run build_runner watch
+
+### Flutter
+
+- flutter clean
+
+- flutter pub get
+
+- flutter test
+
+### Formatting:
+
+- dart fix -apply
+
+- dart format
 
 ## Getting Started
 
