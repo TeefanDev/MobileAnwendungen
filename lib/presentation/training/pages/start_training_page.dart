@@ -7,7 +7,9 @@ import 'package:gymbuddies/presentation/common/widgets/bottom_navigation_bar.dar
 import 'package:gymbuddies/providers/recent_training_provider.dart';
 
 class TrainingStartPage extends ConsumerStatefulWidget {
-  const TrainingStartPage({super.key});
+  final DatabaseHelper databaseHelper;
+
+  const TrainingStartPage({super.key, required this.databaseHelper});
 
   @override
   TrainingStartPageState createState() => TrainingStartPageState();
@@ -37,7 +39,7 @@ class TrainingStartPageState extends ConsumerState<TrainingStartPage> {
   }
 
   Future<void> _fetchTrainingPlans() async {
-    final plans = await DatabaseHelper().getTrainingPlans();
+    final plans = await widget.databaseHelper.getTrainingPlans();
     setState(() {
       trainingPlans = plans;
     });
@@ -98,16 +100,16 @@ class TrainingStartPageState extends ConsumerState<TrainingStartPage> {
               actions: [
                 TextButton(
                   onPressed: () async {
-                          final trainingName = controller.text;
-                          if (trainingName.isNotEmpty) {
-                            await DatabaseHelper().insertRecentTraining(trainingName, DateTime.now());
-                            Navigator.of(context).pop();
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Training saved successfully')),
-                            );
-                            ref.refresh(recentTrainingProvider);
-                          }
-                        },
+                    final trainingName = controller.text;
+                    if (trainingName.isNotEmpty) {
+                      await widget.databaseHelper.insertRecentTraining(trainingName, DateTime.now());
+                      Navigator.of(context).pop();
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Training saved successfully')),
+                      );
+                      ref.refresh(recentTrainingProvider);
+                    }
+                  },
                   child: const Text('Save', style: TextStyle(color: Colors.green)),
                 ),
                 TextButton(

@@ -1,19 +1,33 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:gymbuddies/database/database_helper.dart';
+import 'database_test.mocks.dart';
 
-class MockDatabaseHelper extends Mock implements DatabaseHelper {}
-
+@GenerateMocks([DatabaseHelper])
 void main() {
-  test('Fetch recent trainings from the database', () async {
-    final dbHelper = MockDatabaseHelper();
+  late MockDatabaseHelper mockDbHelper;
 
-    when(dbHelper.getRecentTraining()).thenAnswer((_) async => [
-      {'training': 'Push Ups', 'date': '2024-07-10'}
-    ]);
+  setUp(() {
+    mockDbHelper = MockDatabaseHelper();
+  });
 
-    final recentTrainings = await dbHelper.getRecentTraining();
-    expect(recentTrainings.length, 1);
-    expect(recentTrainings.first['training'], 'Push Ups');
+  test('Fetch upcoming trainings from the database', () async {
+    // Arrange: Setup the mock to return a list of trainings as a Future
+    when(mockDbHelper.getUpcomingTrainings()).thenAnswer(
+      (_) async => [
+        {'training': 'Biking with Tom', 'date': '2024-05-01', 'training_plan_id': 1, 'contact_id': 1}
+      ],
+    );
+
+    // Act: Call the method
+    final upcomingTrainings = await mockDbHelper.getUpcomingTrainings();
+
+    // Assert: Verify the results
+    expect(upcomingTrainings.length, 1);
+    expect(upcomingTrainings.first['training'], 'Biking with Tom');
+    expect(upcomingTrainings.first['date'], '2024-05-01');
+    expect(upcomingTrainings.first['training_plan_id'], 1);
+    expect(upcomingTrainings.first['contact_id'], 1);
   });
 }

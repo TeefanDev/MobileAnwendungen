@@ -3,10 +3,16 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:gymbuddies/presentation/profile/pages/profile_page.dart';
 
 void main() {
-  testWidgets('ProfilePage has a profile picture and user information', (WidgetTester tester) async {
-    await tester.pumpWidget(MaterialApp(home: ProfilePage()));
+  testWidgets('ProfilePage has name and email fields and a Change Password button', (WidgetTester tester) async {
+    // Build the ProfilePage widget
+    await tester.pumpWidget(const MaterialApp(home: ProfilePage()));
 
-    expect(find.byType(CircleAvatar), findsOneWidget);
-    expect(find.text('User Name'), findsOneWidget);
+    await tester.pumpAndSettle();
+
+    expect(find.byType(TextField), findsNWidgets(2));
+    expect(find.text('Name'), findsOneWidget);
+    expect(find.text('Email Address'), findsOneWidget);
+    expect(find.byType(ElevatedButton), findsOneWidget);
+    expect(find.text('Change Password'), findsOneWidget);
   });
 }
