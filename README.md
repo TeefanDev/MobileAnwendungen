@@ -243,6 +243,12 @@ Register:
 
 ![Register](images/register.png)
 
+## Useful
+
+### Commands
+
+`flutter pub run build_runner build`
+
 ## Credits
 
 This app is designed and developed as part of the lectures on mobile applications at the HTWG Konstanz.

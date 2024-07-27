@@ -74,7 +74,7 @@ final GoRouter _router = GoRouter(
       routes: [
         GoRoute(
           path: 'start',
-          builder: (context, state) => const TrainingStartPage(),
+          builder: (context, state) => TrainingStartPage(databaseHelper: DatabaseHelper()),
         ),
         GoRoute(
           path: 'ongoing-training',
@@ -109,10 +109,12 @@ void main() async {
 Future<void> _initializeData(DatabaseHelper dbHelper) async {
   List<Map<String, dynamic>> existingUpcomingTrainings = await dbHelper.getUpcomingTrainings();
   List<Map<String, dynamic>> existingRecentTrainings = await dbHelper.getRecentTrainings();
+  List<Map<String, dynamic>> existingTrainingsPlans = await dbHelper.getTrainingPlans();
+  List<Map<String, dynamic>> existingContacts = await dbHelper.getContacts();
 
   if (existingUpcomingTrainings.isEmpty) {
     List<Map<String, dynamic>> upcomingTrainings = [
-      {'training': 'Biking with Tom', 'date': '2024-05-01', 'training_plan': 1, 'contact': 1},
+      {'training': 'Erste MA Vorlesung', 'date': '2024-03-21', 'training_plan': 1, 'contact': 1},
       {'training': 'Chest Day with Harry', 'date': '2024-05-04', 'training_plan': 1, 'contact': 1},
       {'training': 'Hiking with Larry', 'date': '2024-05-05', 'training_plan': 1, 'contact': 1},
       {'training': 'Swimming with Mike', 'date': '2024-06-12', 'training_plan': 1, 'contact': 1},
@@ -140,6 +142,32 @@ Future<void> _initializeData(DatabaseHelper dbHelper) async {
 
     for (var training in recentTrainings) {
       await dbHelper.insertRecentTraining(training, DateTime.now());
+    }
+  }
+
+  if (existingTrainingsPlans.isEmpty) {
+    List<Map<String, dynamic>> trainingPlans = [
+      {'name': 'Plan A', 'description': 'Biking'}
+    ];
+
+    for (var training_plans in trainingPlans) {
+      await dbHelper.insertTrainingPlan(
+        training_plans['name'] as String,
+        training_plans['description'] as String,
+      );
+    }
+  }
+
+  if (existingContacts.isEmpty) {
+    List<Map<String, dynamic>> contacts = [
+      {'name': 'Buddy', 'email': 'buddy@example.com'}
+    ];
+
+    for (var contact in contacts) {
+      await dbHelper.insertContact(
+        contact['name'] as String,
+        contact['email'] as String,
+      );
     }
   }
 }
