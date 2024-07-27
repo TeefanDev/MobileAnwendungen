@@ -1,0 +1,18 @@
+appId: com.example.gymbuddies
+---
+- launchApp
+- tapOn:
+    text: "LOGIN"
+- tapOn:
+    text: "Calender"
+- tapOn:
+    text: "Add New Training Event"
+- inputText:
+    text: "Morning Run"
+    placeholder: "Training"
+- tapOn:
+    text: "select plan"
+- tapOn:
+    text: "Add"
+- assertVisible:
+    text: "Morning Run"

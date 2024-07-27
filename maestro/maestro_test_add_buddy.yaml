@@ -1,0 +1,17 @@
+appId: com.example.gymbuddies
+---
+- launchApp
+- tapOn:
+    text: "LOGIN"
+- tapOn:
+    text: "Contacts"
+- inputText:
+    text: "New Buddie"
+    placeholder: "Email"
+- inputText:
+    text: "new.buddie@example.com"
+    placeholder: "Email"
+- tapOn:
+    text: "sendInvitationLabel"
+- assertVisible: 
+    text: new.buddie@example.com
